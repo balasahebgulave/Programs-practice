@@ -17,3 +17,14 @@ for j in d['value']:
 	d3.append(d1)
 
 print(d3)
+
+
+OR
+
+
+d1={'description_top':[]}
+d2={}
+for i,j in enumerate(d['value']):
+	d2['description_element']=j
+	d1['description_top'].append(d2)
+print(d1)
