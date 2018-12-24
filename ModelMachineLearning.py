@@ -45,3 +45,8 @@ def svm_model(dfx,dfy,botId,userID):
    # save the model to disk
     filename = PICKLE_FILE_PATH + botId + '_svm.sav'
     joblib.dump(nb, open(filename, 'wb'))
+
+    
+    
+    
+    
