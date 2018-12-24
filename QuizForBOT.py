@@ -21,7 +21,6 @@ def finalQuizResponse(botResponseInJson):
             scoreCounter+=1
             botResponseInJson['score']=scoreCounter
             
-        # print('----------------scoreCounter-----------',botResponseInJson['score'])
 
         if botResponseInJson['quick_reply'][0]['quick_reply_intent']=="":
             botResponseInJson['quick_reply'] = []
