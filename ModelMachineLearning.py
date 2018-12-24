@@ -22,3 +22,26 @@ def naiveBayes_model(dfx,dfy,botId,userID):
     pred=nb.predict(x_testcv)
     filename = PICKLE_FILE_PATH + botId  + '_nb.sav'
     joblib.dump(nb, open(filename, 'wb'))
+
+    
+    
+    
+    
+def svm_model(dfx,dfy,botId,userID):
+
+    cv=CountVectorizer(ngram_range=(1,2))  # create object of counter vector
+    #print(cv)
+    x_train_cv = cv.fit_transform(dfx)
+    x_test_cv = cv.transform(dfx)
+
+    filename1= PICKLE_FILE_PATH + botId + '_svm.pkl'
+    joblib.dump(cv.vocabulary_, open(filename1, 'wb'))
+    table = pd.DataFrame(x_train_cv.toarray(),columns=cv.get_feature_names())
+    nb = svm.SVC( kernel="linear",probability=True)
+    #fit model
+    nb.fit(x_train_cv, dfy)
+    pred=nb.predict(x_test_cv)
+    #metrics.accuracy_score(dfy, pred)
+   # save the model to disk
+    filename = PICKLE_FILE_PATH + botId + '_svm.sav'
+    joblib.dump(nb, open(filename, 'wb'))
