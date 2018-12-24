@@ -46,7 +46,88 @@ def svm_model(dfx,dfy,botId,userID):
     filename = PICKLE_FILE_PATH + botId + '_svm.sav'
     joblib.dump(nb, open(filename, 'wb'))
 
+ 
+
+# code for predictions
     
     
-    
-    
+import joblib
+from sklearn import svm
+from sklearn.feature_extraction.text import CountVectorizer
+import pandas as pd
+from sklearn import metrics
+from sklearn.externals import joblib
+from config import TRAINED_MODEL_PATH
+
+def loadModels(botId,userID):
+    ### Import Naive bayes model
+    NB_Model = TRAINED_MODEL_PATH + botId   + '_nb.sav'
+    NB_Vocab = TRAINED_MODEL_PATH + botId   + '_nb.pkl'
+    ### Import SVM model
+    SVM_Model = TRAINED_MODEL_PATH + botId   + '_svm.sav'
+    SVM_Vocab = TRAINED_MODEL_PATH + botId   + '_svm.pkl'
+    return NB_Model,NB_Vocab,SVM_Model,SVM_Vocab
+
+def loadNB(filename, vocab):
+    loaded_vec = CountVectorizer(vocabulary=joblib.load(open(vocab, "rb")))
+    loaded_model = joblib.load(open(filename, 'rb'))
+    return loaded_vec,loaded_model
+
+## loading SVM vocab and model from disk
+def loadSVM(filename,vocab):
+    loaded_vec=CountVectorizer(vocabulary=joblib.load(open(vocab, "rb")))
+    loaded_model = joblib.load(open(filename, 'rb'))
+    return loaded_vec,loaded_model
+
+
+def predictions(question,botId,userID):
+    NB_Model,NB_Vocab,SVM_Model,SVM_Vocab = loadModels(botId,userID)
+    ### loading all vocab and model
+    loaded_nbVocab, loaded_nb = loadNB(NB_Model, NB_Vocab)
+    loaded_svmVocab, loaded_svm = loadSVM(SVM_Model, SVM_Vocab)
+    new_cv_nb = loaded_nbVocab.transform(question)
+    new_cv_svm = loaded_svmVocab.transform(question)
+    if new_cv_nb.getnnz() == 0 and new_cv_svm.getnnz() == 0:
+        return "unidentified intent"
+    else:
+        nb_pred = loaded_nb.predict(new_cv_nb)
+        nb_prob = loaded_nb.predict_proba(new_cv_nb)
+        svm_pred = loaded_svm.predict(new_cv_svm)
+        svm_prob = loaded_svm.predict_proba(new_cv_svm)
+        for item in nb_prob:
+            maxprob_nb = (max(item))
+        for element in svm_prob:
+            maxprob_svm = (max(element))
+        return [nb_pred,svm_pred,maxprob_nb,maxprob_svm]
+
+## ensemble for voting for prediction
+def ensemblemethod(x,y,a,b):
+    if x == y:
+        return [x]
+    elif x != y:
+        if a >= b:
+            return [x]
+        else:
+            return [y]
+
+
+def startPrediction(message,botResponseInJson):
+    #question = ['when is diwali']
+    try:
+        pred_Result = predictions(message,botResponseInJson['botID'],botResponseInJson['userID'])
+        #print(pred_Result)
+        if pred_Result == "unidentified intent":
+            result = pred_Result
+            return result
+        else:
+            NBResult = pred_Result[0][0]
+            SVMResult = pred_Result[1][0]
+            NBScore = pred_Result[2]
+            SVMScore = pred_Result[3]
+            #print(NBScore,SVMScore)
+            result = ensemblemethod(NBResult,SVMResult,NBScore,SVMScore)
+            #print(result)
+            #print(len(result))
+            return result[0]
+    except:
+        return 'Please Train the BOT'
