@@ -1,6 +1,6 @@
 
 
-#program for taking data from mongodb collection from that pick only updated data.
+# program for taking data from mongodb collection from that pick only updated data.
 
 
 transaction = db.feedbackData.find_one( {'$and':[{'bot_id':(botResponseInJson['botID'])},
