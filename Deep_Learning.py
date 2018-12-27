@@ -27,6 +27,8 @@ from keras.models import Sequential
 from sklearn.preprocessing import LabelEncoder
 import pickle
 from sklearn.externals import joblib
+from keras import backend as K
+
 # from config import PICKLE_FILE_PATH
 
 
@@ -109,6 +111,8 @@ def RNN_model(dfx,dfy,botId,userID):
 	filename = "final_model.pickle"
 	joblib.dump(model, open(filename, 'wb'))
 	joblib.dump(data_dict , open('myfile.pickle', 'wb') )
+	K.clear_session()
+
 
 
 
