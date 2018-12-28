@@ -41,9 +41,10 @@ def RNN_model(dfx,dfy,botId,userID):
 
 	# you need to create new dictionary to save sequential data in new file .pkl etc
 	data_dict = {}
+	data_lables = {}
 	for i in genre_mappings:
-		data_dict[i] = genre_mappings[i]
-	
+		data_lables[i] = genre_mappings[i]
+	data_dict['lables'] = data_lables
 
 	# train data x
 
@@ -55,6 +56,7 @@ def RNN_model(dfx,dfy,botId,userID):
 	tok.fit_on_texts(X)
 	sequences = tok.texts_to_sequences(X)
 	sequences_matrix = sequence.pad_sequences(sequences,maxlen=max_len)
+	data_dict['features'] = tok
 	
 
 
@@ -155,7 +157,11 @@ from keras import backend as K
 def pred(message):
 	max_words = 1000
 	max_len = 150
-	tok = Tokenizer(num_words=max_words)
+	
+	file = open('myfile.pickle','rb')
+	data = pickle.load(file)
+	tok = data['features']
+	
 	f = open('final_model.pickle' , 'rb')
 	Model = pickle.load(f)
 	f.close()
@@ -178,9 +184,8 @@ def pred(message):
 	predictions = Model.predict(sequences_matrix1)
 	b=np.argmax(predictions)
 	
-	file = open('myfile.pickle','rb')
-	data = pickle.load(file)
-	print(data[b])
+	
+	print(data['lables'][b])
 
 
 
