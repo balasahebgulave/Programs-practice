@@ -196,3 +196,48 @@ def pred(message):
 
 
 pred(['hi'])
+
+
+
+
+
+
+
+def inceremental_RNN_Model(dfx,dfy,botId,userID):
+
+	gle = LabelEncoder()
+	# genre_labels = gle.fit_transform(df['intent_name'])
+	genre_labels = gle.fit_transform(dfy)
+	genre_mappings = {index: label for index, label in enumerate(gle.classes_)}
+	data_dict = {}
+	data_lables = {}
+	for i in genre_mappings:
+		data_dict[i] = genre_mappings[i]
+	data_dict['lables'] = data_lables
+
+
+	####train data x
+	X = dfx
+	classess =len(genre_mappings) + 1
+
+	max_words = 1000
+	max_len = 150
+	tok = Tokenizer(num_words=max_words)
+	tok.fit_on_texts(X)
+	sequences = tok.texts_to_sequences(X)
+	sequences_matrix = sequence.pad_sequences(sequences,maxlen=max_len)
+	data_dict['features'] = tok
+	label = ku.to_categorical(genre_labels, num_classes=classess)
+
+	filename =  open(PICKLE_FILE_PATH + botId + '.pickle', 'rb')
+	model = pickle.load(filename)
+
+	model.fit(sequences_matrix,label,epochs=10,verbose=2)
+
+	filename =  PICKLE_FILE_PATH + botId + '.pickle'
+	joblib.dump(model, open(filename, 'wb'))
+
+
+	datafile = PICKLE_FILE_PATH + botId + 'data.pickle'
+	joblib.dump(data_dict , open(datafile, 'wb') )
+	K.clear_session()
