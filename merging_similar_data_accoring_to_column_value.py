@@ -22,7 +22,7 @@ Last_Funding = []
 
 l =[]
 for k, i in enumerate(data1['Company Url']):
-    i =str(i)
+    i =str(i)i = str(i).lower().strip()
     i = i.replace('www.','')
     i = i.replace('http://www.','')
     i = i.replace('https://www.','')
@@ -34,6 +34,7 @@ for k, i in enumerate(data1['Company Url']):
 
 l1 = []
 for k, i in enumerate(data2['Website']):
+    i = str(i).lower().strip()
     if i in l:
         l1.append(i)
         a = list(data2.iloc[k,:])
