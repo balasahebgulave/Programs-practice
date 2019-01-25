@@ -60,8 +60,6 @@ for k, i in enumerate(data2['Website']):
                 Industry.append(b[9])
 
 
-data = pd.DataFrame(list(zip(Company_Name ,Company_Url,Company_Description,\
-LinkdIn_url,Address,Current_Head_Count,Six_Month_Head_Count,One_Year_Head_Count,
-\Two_Year_head_Count,Industry,Name,Website,Stage,Investors,Total_Funding,Last_Funding)))
+data = pd.DataFrame(list(zip(Company_Name ,Company_Url,Company_Description,LinkdIn_url,Address,Current_Head_Count,Six_Month_Head_Count,One_Year_Head_Count,Two_Year_head_Count,Industry,Name,Website,Stage,Investors,Total_Funding,Last_Funding)))
 
 data.to_csv('set_21.csv',sep=',')
