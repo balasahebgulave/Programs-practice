@@ -1,5 +1,6 @@
-
+# https://github.com/vahidk/EffectiveTensorflow#basics
 # coding: utf-8
+
 
 # ## Tensorflow
 # For CPU
