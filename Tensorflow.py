@@ -223,10 +223,10 @@ session.run(c , feed_dict = {a:[1,2,3,4,5],b:[6,7,8,9,10]})
 # 5. Evaluation criteria - 
 # 
 #      a. training_accuracy
-#      e.g - train_accuracy = np.mean(np.argmax(y_train, axis=1) == sess.run(ypredict, feed_dict={X:            X_train, y: y_train}))
+#      e.g - train_accuracy = np.mean(np.argmax(y_train, axis=1) == sess.run(ypredict, feed_dict={X : X_train, y: y_train}))
 #      
 #      b. testing_accuracy
-#      e.g - test_accuracy  = np.mean(np.argmax(y_test, axis=1) == sess.run(ypredict, feed_dict={X:            X_test, y: y_test}))
+#      e.g - test_accuracy  = np.mean(np.argmax(y_test, axis=1) == sess.run(ypredict, feed_dict={X : X_test, y: y_test}))
 # 
 
 # # Model Example
