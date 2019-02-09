@@ -41,6 +41,60 @@ def home(request):
   
   
   
+	
+# subprocess file
+
+'''
+
+
+# -*- coding: utf-8 -*-
+import scrapy
+import json
+
+class NewyorkSpider(scrapy.Spider):
+    name = 'newyork'
+    # allowed_domains = ["wsj.com/public/page/new-york-main.html"]
+    start_urls = [r'https://www.wsj.com/public/page/new-york-main.html']
+
+    def parse(self, response):
+    	urls=response.xpath('//*[@id="root"]/div/div/div/div[2]/div/div/div[2]/div[1]').css("a::attr(href)").extract()
+    	unique_urls=set()
+    	for i in urls:
+    		unique_urls.add(i)
+    	for j in unique_urls:
+    		yield scrapy.Request(url=j,callback=self.parse_details)            
+        
+    def parse_details(self,response):
+        body =[]
+        content = response.css('div[class="wsj-snippet-body"]>p::text').extract()
+        if type(content)==list:
+            if len(content)>=1:
+                for con in response.css('div[class="wsj-snippet-body"]>p::text').extract():
+                    body.append(con)
+            else:
+                body.append("Content not available")
+        else:
+            body=content
+        js=response.css('script[type="application/ld+json"]::text').extract_first().replace("\n  ","").replace("\n","")
+        js=json.loads(js)
+        return {"topic":response.css('a[itemprop="item"]::text').extract_first().strip(),"contents":{"Headline":js["headline"],
+               "subtitle":response.css('h2[class="sub-head"]::text').extract_first(),
+                                         "Author":js["author"]["name"],
+                                         "date created":js["dateCreated"],
+                                         "Image_url":js["image"]["url"],
+                                         "Content":body
+                                         }}
+
+      
+        
+        
+
+
+
+
+
+'''
+	
   
   
   
