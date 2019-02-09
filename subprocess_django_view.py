@@ -150,3 +150,64 @@ class NewyorkSpider(scrapy.Spider):
   '''
 
 
+
+# iframe usecase
+
+'''
+
+
+{% extends 'base.html' %}
+{% block content %}
+
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="row" style="margin-bottom: 5%">
+	<div class="col-md-5" style=" margin-left: 5% ; margin-top: 5%">
+	<br><h1>Extract Here</h1>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+               
+            <input type="text" class="form-control" placeholder=" Enter Url Name" name="company" value ="{{employees}}" required><br>
+
+                
+            <button class="btn btn-primary" type="submit">submit</button>
+        </form><br>
+
+		{% if company %}
+		<p style="color: white">Industry Type : {{company}}</p>
+		<p style="color: white">Domain Name : <a style="color: orange" href="{{domain}}"  target="myframe">{{domain}}</a></p>
+		{% else %}
+		<p></p>
+		{% endif %}
+		</div>
+
+		<div class="col-md-5" style="margin-left: 5% ; margin-top: 5%;">
+			{% if secure == 'https' %}
+			<img src="static/images/secure_website.jpg" alt='Secure' style="width: 440px; height:305px ; margin-top:8px ;margin-bottom: 8px ">
+			
+			{% else %}
+
+		     <iframe src="{{domain}}" sandbox="allow-same-origin allow-scripts allow-popups" name="myframe" scrolling="auto" style="width: 440px; height:305px ; margin-top:8px"></iframe>
+			
+			{% endif %}
+			
+			
+		     
+		</div>
+</div>
+</body>
+
+{% endblock %}
+
+
+
+
+'''
+
+
+
