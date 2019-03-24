@@ -1,0 +1,154 @@
+Nifty Net - tensorflow based open-source cnn for medical image analysis 
+	for research in medical images, segmentation, regression, image
+	generation and presentation.
+
+for .NII format images - matplotlib is only suitable for detection. in 
+CT scan segmentation.
+
+features 2D, 3D, 4D, 5D inputs sharing network and pretrained model.
+
+organ segmentaion CT scan 90 abnominal CT scan images with fully connected
+CNN and relu for activation.
+
+Neural Enhance - can be zoom in to images at 2X or 4X .
+	better resolution can be obtained.
+
+SRGAN Framework - To get high resolution image.
+
+Generator Network - Tesla M40 GPU - for training.
+
+WorkFlow - original_image --> SRGAN --> VNet --> Bicubic  
+
+features
+Easy to customise interface of network components
+
+Neural-Enhance
+
+converting low to high resolution is called superresolution
+
+DeepFashion
+
+
+
+
+
+Typical workflow for TensorFlow
+powering robust clothes recognition
+
+Login as- rourkela-poc1
+password-nvidia
+
+Lab IP
+ip - 10.24.230.168
+
+nvidia-docker run -it --name kasaraneni nvcr.io/nvidia/tensorflow:19.01-py3
+
+for image
+docker images
+
+for container id
+docker ps -a
+
+for get the workspace
+sudo nvdia-docker run -it <container_username>/<images_reponame> 
+
+for normaly run again while connection abort
+ 
+docker run <your_image_id>
+
+docker commit 3a699f3d2fcb kasaranenirepo
+
+sudo docker images
+
+find the repo-id of your's
+
+docker tag <image-id of repo> username/userreponame
+
+docker login --username <dockerusername>
+password-<dockerpassword>
+
+
+docker push username/userreponame:youtag
+
+to copy file from current to destination file
+
+docker cp "src path" container-id  "destination path"
+
+calibration dataset
+1-reprensentative
+2-Diverse.
+3-Ideally a subset of validation datatset
+4-1000s of samples
+
+
+
+
+
+
+
+Typical workflow for TensorRT
+
+uff - universal framework
+
+
+IP - 10.24.230.168
+
+login as - rourkela-poc1
+pass - nvidia
+
+we are in dgx station
+nvidia-docker run -it --name kasaraneni nvcr.io/nvidia/tensorrt:18.08-py3
+
+
+first login your docker account here
+
+for container id
+docker ps -a
+
+docker commit container_id <your_repo_name>
+
+nvidia-docker run -it <your_repo_name>
+
+here we go to tensorrt workspace we will get a command for setup file run it for setup wait till complete.
+ 
+sudo docker commit <container_id> your_repo_name
+
+sudo docker/nvidia-docker /home/rourkela-poc1/tf-trt <container_id>:/workspace/tensorrt
+
+pip install setuptools
+pip install jupyter
+
+jupyter notebook --ip=0.0.0.0:5000 --allow-root
+
+here we get token number
+
+hit ip:port on browser and write token number
+
+
+
+
+
+Typical workflow for DeepStream
+
+running multiple streams
+
+running multiple multiple models 
+
+multiple models on single stream
+
+single model on single stream
+
+
+framework for analyzing video
+Gstreamer package
+
+go to nvdia docker images 
+
+sudo nvidia-docker images
+
+find the nvcr.io/nvidia/deepstream and get IMAGE-ID
+
+sudo nvidia-docker run -it <image_id>
+
+go to Deepstream_Release one directory back to current directory 
+
