@@ -1,3 +1,4 @@
+# https://stackoverflow.com/questions/32005310/speech-recognition-python-code-not-working
 # pip install SpeechRecognition
 # pip install PyAudio
 
