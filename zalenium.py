@@ -5,6 +5,7 @@ import os
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.keys import Keys
 
+# Refrence link - https://devopsqa.wordpress.com/2018/11/20/zalenium-docker-selenium-grid/
 
 try:
     driver = webdriver.Remote(
