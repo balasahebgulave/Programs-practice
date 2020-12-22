@@ -1,0 +1,18 @@
+wget -O - http://updates.atomicorp.com/installers/atomic |sh
+yum install  atomic-sqlite
+export LD_LIBRARY_PATH='/opt/atomicorp/atomic/root/usr/lib64/'
+
+
+# Add Below line to given file
+vim /etc/profile
+export LD_LIBRARY_PATH='/opt/atomicorp/atomic/root/usr/lib64/'
+
+source /etc/profile
+
+
+
+
+python3
+>>> import sqlite3
+>>> sqlite3.sqlite_version
+'3.8.5'
