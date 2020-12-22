@@ -1,0 +1,90 @@
+Install Python 3.8 on CentOS 6 from source
+Posted on July 18, 2020 by ServerOk
+To install Python 3.8 on CentOS, you need to install OpenSSL as the one installed by CentOS from yum is very old.
+
+cd /usr/local/src
+wget https://www.openssl.org/source/openssl-1.1.1g.tar.gz
+tar xvf openssl-1.1.1g.tar.gz
+cd openssl-1.1.1g
+./config --prefix=/usr/serverok/openssl --openssldir=/usr/serverok/openssl no-ssl2
+make
+make install
+1
+2
+3
+4
+5
+6
+7
+cd /usr/local/src
+wget https://www.openssl.org/source/openssl-1.1.1g.tar.gz
+tar xvf openssl-1.1.1g.tar.gz
+cd openssl-1.1.1g
+./config --prefix=/usr/serverok/openssl --openssldir=/usr/serverok/openssl no-ssl2
+make
+make install
+Now edit file
+
+vi ~/.bash_profile
+1
+vi ~/.bash_profile
+at end of the file, add
+
+export PATH=/usr/serverok/openssl/bin:$PATH
+export LD_LIBRARY_PATH=/usr/serverok/openssl/lib
+export LC_ALL="en_US.UTF-8"
+export LDFLAGS="-L/usr/serverok/openssl/lib -Wl,-rpath,/usr/serverok/openssl/lib"
+1
+2
+3
+4
+export PATH=/usr/serverok/openssl/bin:$PATH
+export LD_LIBRARY_PATH=/usr/serverok/openssl/lib
+export LC_ALL="en_US.UTF-8"
+export LDFLAGS="-L/usr/serverok/openssl/lib -Wl,-rpath,/usr/serverok/openssl/lib"
+Make the settings active with command
+
+source ~/.bash_profile
+1
+source ~/.bash_profile
+Now we can install Python 3.8 with
+
+cd /usr/local/src
+wget https://www.python.org/ftp/python/3.8.4/Python-3.8.4.tar.xz
+tar xvf Python-3.8.4.tar.xz
+cd /usr/local/src/Python-3.8.4
+make clean && make distclean
+./configure --enable-optimizations  --with-openssl=/usr/serverok/openssl/
+make altinstall
+1
+2
+3
+4
+5
+6
+7
+cd /usr/local/src
+wget https://www.python.org/ftp/python/3.8.4/Python-3.8.4.tar.xz
+tar xvf Python-3.8.4.tar.xz
+cd /usr/local/src/Python-3.8.4
+make clean && make distclean
+./configure --enable-optimizations  --with-openssl=/usr/serverok/openssl/
+make altinstall
+Now python 3.8 will be available in your system under /usr/local/bin
+
+root@server12:~# python3.8 --version
+Python 3.8.4
+root@server12:~# which python3.8
+/usr/local/bin/python3.8
+root@server12:~# 
+1
+2
+3
+4
+5
+root@server12:~# python3.8 --version
+Python 3.8.4
+root@server12:~# which python3.8
+/usr/local/bin/python3.8
+root@server12:~# 
+
