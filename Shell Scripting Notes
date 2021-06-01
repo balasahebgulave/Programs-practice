@@ -15,7 +15,7 @@ echo $HOME
 echo $PWD
 
 # user defined variable
-name = 'Balasaheb'
+name=Balasaheb
 echo $name
 
 
