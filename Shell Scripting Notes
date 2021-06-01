@@ -33,6 +33,13 @@ echo 'plz enter names : '
 read -a names
 echo "${names[0]}, ${names[1]}, ${names[2]}"
 
+# Take default input in REPLY
+echo 'plz enter something : '
+read 
+echo "You entered : $REPLY"
+
+
+
 
 
 
