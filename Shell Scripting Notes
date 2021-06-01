@@ -18,6 +18,7 @@ echo $PWD
 name=Balasaheb
 echo $name
 
+
 # Take user input
 echo 'plz enter your name : '
 read name
@@ -37,6 +38,20 @@ echo "${names[0]}, ${names[1]}, ${names[2]}"
 echo 'plz enter something : '
 read 
 echo "You entered : $REPLY"
+
+
+# Pass arguments to bash scripts
+args=("$@")
+echo "${args[0]} ${args[1]}"
+
+# To print all passed arguments
+echo $@
+
+# To print how many number of argument passed.
+echo $#
+
+
+
 
 
 
