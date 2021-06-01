@@ -5,3 +5,6 @@ echo 'Hello World!'
 
 Command - ls -al 
 Desc - To cheack file permission.
+
+Command - chmod -x filename
+Desc - To give excute permission to file.
