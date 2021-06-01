@@ -25,4 +25,9 @@ echo "The name is : $name"
 
 # Take user input in same line
 read -p 'plz enter username : ' username
-echo "username : $username"
+read -sp 'plz enter passwoed : ' password
+echo "username : $username $password"
+
+
+
+
