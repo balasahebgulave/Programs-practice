@@ -18,5 +18,8 @@ echo $PWD
 name=Balasaheb
 echo $name
 
-
+# Take user input
+echo 'plz enter your name : '
+read name
+echo "The name is : $name"
 
