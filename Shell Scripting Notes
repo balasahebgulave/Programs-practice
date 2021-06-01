@@ -1,13 +1,15 @@
 
 #! /bin/bash
 echo 'Hello World!'
-
+# This is a comment.
 
 Command - ls -al 
 Desc - To cheack file permission.
 
 Command - chmod +x filename
 Desc - To give excute permission to file.
+
+
 
 
 
